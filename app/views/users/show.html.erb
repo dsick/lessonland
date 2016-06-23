@@ -1,0 +1,5 @@
+<h2><%= @user.username %> Profile</h2>
+<p>Photo: <%= @user.profile_photo %> Email: <%= @user.email %> </p>
+<p>Username: <%= @user.username %> </p>
+<p>Description: <%= @user.description %> </p>
+<p><%= link_to "Edit Profile",  edit_user_registration_path, class: "btn btn-primary" %></p>
