@@ -6,7 +6,7 @@
   
   <div class="field">
     <%= f.label :profile_photo %><br />
-    <%= f.text_field :profile_photo, autofocus: true %>
+    <%= f.file_field :profile_photo %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

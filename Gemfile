@@ -24,9 +24,12 @@ source 'https://rubygems.org'
  # gem 'omniauth'
  # gem 'omniauth-facebook'
  gem 'awesome_print'
- # gem 'fog'
- # gem 'carrierwave'
+
+ gem 'carrierwave'
+ gem 'fog-aws'
+ gem 'mini_magick'
  # gem 'stripe'
+ 
 
 
  group :development, :test do
@@ -37,4 +40,6 @@ source 'https://rubygems.org'
    gem 'shoulda'
    gem 'faker'
    gem 'factory_girl_rails'
+   gem 'better_errors'
+   gem 'binding_of_caller'
  end
