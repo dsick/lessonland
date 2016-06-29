@@ -12,7 +12,16 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
 
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :profile_photo, :description])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :profile_photo, :description, :superadmin])
 
   end
+
+  def authenticate_admin_user!
+      redirect_to '/' and return if user_signed_in? && !current_user.superadmin? 
+      authenticate_user! 
+    end 
+    def current_admin_user #use predefined method name
+      return nil if user_signed_in? && !current_user.superadmin? 
+      current_user 
+    end 
 end
