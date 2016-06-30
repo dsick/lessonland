@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: "users/registrations" }
   resources :users, only: :show # creates user_root_path
+  resources :lessons, only: [:show, :index]
+  resources :categories, only: [:show, :index]
+  resources :lesson_steps, only: [:show, :index]
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
