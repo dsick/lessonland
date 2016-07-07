@@ -29,7 +29,7 @@ source 'https://rubygems.org'
  gem 'fog-aws'
  gem 'mini_magick'
  gem 'activeadmin','~> 1.0.0.pre2'
- # gem 'stripe'
+ gem 'stripe'
  
 
 

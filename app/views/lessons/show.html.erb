@@ -1,3 +1,14 @@
-<h2><%= @lesson.name %></h2>
-<p><%= @lesson.description %> </p>
+<div class="row">
+	<div class="col-md-6">
+		<h2><%= @lesson.name %></h2>
+		<p><%= @lesson.description %> </p>
+	</div>
+
+<% if @user.purchases.exists? @lesson %>
+<% else %>
+	<div class="col-md-1">
+	  <% stripe_charge_button(@lesson)
+	</div>
+<% end %>
+</div>
 <%= render partial: 'lesson_steps/lesson_steps' %>
