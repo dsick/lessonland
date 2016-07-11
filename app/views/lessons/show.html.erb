@@ -3,12 +3,19 @@
 		<h2><%= @lesson.name %></h2>
 		<p><%= @lesson.description %> </p>
 	</div>
-
-<% if @user.purchases.exists? @lesson %>
-<% else %>
+<% unless @user.purchases.exists? lesson_id: @lesson.id %>
 	<div class="col-md-1">
-	  <% stripe_charge_button(@lesson)
+	  <%= stripe_charge_button(@lesson) %>
 	</div>
 <% end %>
 </div>
-<%= render partial: 'lesson_steps/lesson_steps' %>
+<% if @user.purchases.exists? lesson_id: @lesson.id %>
+	<%= render partial: 'lesson_steps/lesson_steps' %>
+<% else %>
+	<div class="row lesson-step">
+		<div class="col-md-8">
+			<%= image_tag("lesson_preview.png", alt: "lesson preview", class: "preview-lesson") %>
+		</div>
+	</div>
+<% end %>	
+	
