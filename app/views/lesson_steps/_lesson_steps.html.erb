@@ -1,0 +1,11 @@
+<% @lesson_steps.each do |lesson_step| %>
+  <div class="row lesson-step">
+     <div class="col-md-3">
+      <%= image_tag(lesson_step.photo) %>
+     </div>
+     <div class="col-md-5">
+      <h4><%= lesson_step.title %></h4>
+      <%= lesson_step.description %>
+     </div>
+  </div>
+<% end %>
