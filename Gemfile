@@ -21,12 +21,15 @@ source 'https://rubygems.org'
  gem 'figaro'
  gem 'pry'
  gem 'devise'
- gem 'omniauth'
- gem 'omniauth-facebook'
+ # gem 'omniauth'
+ # gem 'omniauth-facebook'
  gem 'awesome_print'
- gem 'fog'
+
  gem 'carrierwave'
- gem 'stripe'
+ gem 'fog-aws'
+ gem 'mini_magick'
+ # gem 'stripe'
+ 
 
 
  group :development, :test do
@@ -37,4 +40,6 @@ source 'https://rubygems.org'
    gem 'shoulda'
    gem 'faker'
    gem 'factory_girl_rails'
+   gem 'better_errors'
+   gem 'binding_of_caller'
  end

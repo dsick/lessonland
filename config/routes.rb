@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: "users/registrations" }
+  resources :users, only: :show # creates user_root_path
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
