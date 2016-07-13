@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630230924) do
+ActiveRecord::Schema.define(version: 20160705224106) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20160630230924) do
   end
 
   add_index "lessons", ["category_id"], name: "index_lessons_on_category_id"
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "lesson_id",                          null: false
+    t.integer  "user_id",                            null: false
+    t.decimal  "amount",     precision: 8, scale: 2, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "purchases", ["lesson_id"], name: "index_purchases_on_lesson_id"
+  add_index "purchases", ["user_id"], name: "index_purchases_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

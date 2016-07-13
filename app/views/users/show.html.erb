@@ -4,3 +4,25 @@
 <p>Username: <%= @user.username %> </p>
 <p>Description: <%= @user.description %> </p>
 <p><%= link_to "Edit Profile",  edit_user_registration_path, class: "btn btn-primary" %></p>
+<h3>Purchases</h3>
+<div class="row">
+	<div class="col-md-6">
+		<table>
+			<tbody>
+				<tr>
+					<th>Lesson</th>
+					<th>Price</th>
+					<th>Purchased Date</th>
+				</tr>
+				<% if @user.purchases.nil? %>
+					<tr>
+						<td colspan="3">No purchases</td>
+					</tr>
+				<% else %>
+			    	<%= render partial: "purchases/purchase", collection: @user.purchases, as: :purchase %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+

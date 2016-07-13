@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :lessons, only: [:show, :index]
   resources :categories, only: [:show, :index]
   resources :lesson_steps, only: [:show, :index]
+  resources :charges, only: [:new, :create]
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
