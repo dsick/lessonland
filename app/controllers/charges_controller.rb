@@ -18,22 +18,52 @@ class ChargesController < ApplicationController
 
   def create
     @lesson = Lesson.find(params[:lesson_id])
+
+    @amount = @lesson.price
+    @final_amount = @amount
+
+    @code = params[:couponCode]
+
+    if !@code.blank?
+      @discount = get_discount(@code)
+
+      if @discount.nil?
+        flash[:error] = 'Coupon code is not valid or expired.'
+        redirect_to new_charge_path
+        return
+      else
+        @discount_amount = @discount 
+        @final_amount = @amount - @discount_amount.to_f
+      end
+
+      charge_metadata = {
+        :coupon_code => @code,
+        :coupon_discount => (@discount * 100).to_s + '%'
+      }
+    end
+       
+
+    charge_metadata ||= {}
+
     # Creates a Stripe Customer object, for associating
     # with the charge
+
     customer = Stripe::Customer.create(
       email: current_user.email,
       card: params[:stripeToken]
     )
 
+    
+
     # Where the real magic happens
     charge = Stripe::Charge.create(
       customer: customer.id, # Note -- this is NOT the user_id in your app
-      amount: (@lesson.price*100).round,
+      amount: (@final_amount*100).round,
       description: "Lesson Land - #{@lesson.name}",
       currency: 'usd'
     )
 
-    Purchase.create(lesson_id: @lesson.id, user_id: current_user.id, amount: @lesson.price)
+    Purchase.create(lesson_id: @lesson.id, user_id: current_user.id, amount: @final_amount.round(2))
 
     flash[:notice] = "Thanks for purchasing #{@lesson.name}."
     redirect_to user_path(current_user) # or wherever
@@ -46,4 +76,17 @@ class ChargesController < ApplicationController
     redirect_to new_charge_path
   end
 
+  private
+
+  COUPONS = {
+    'FIRST' => 1.00,
+    'SECOND' => 0.50
+  }
+
+  def get_discount(code)
+    # Normalize user input
+    code = code.gsub(/ +/, '')
+    code = code.upcase
+    COUPONS[code]
+  end
 end
